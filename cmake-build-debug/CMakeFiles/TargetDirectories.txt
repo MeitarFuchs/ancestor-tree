@@ -1,0 +1,3 @@
+/home/meitarfuchs/CLionProjects/TreeF/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/meitarfuchs/CLionProjects/TreeF/cmake-build-debug/CMakeFiles/TreeF.dir
+/home/meitarfuchs/CLionProjects/TreeF/cmake-build-debug/CMakeFiles/edit_cache.dir

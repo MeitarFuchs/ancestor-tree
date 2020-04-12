@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/TreeF.dir/Demo.cpp.o CMakeFiles/TreeF.dir/FamilyTree.cpp.o  -o TreeF 
