@@ -1,45 +1,56 @@
-#include "FamilyTree.hpp"
-#include <iostream>
-#include <stdio.h>
 #include <string>
-#include <exception>
+#include <iostream>
+#include <cmath>
+#include "FamilyTree.hpp"
 
-using namespace std;
+using namespace std ;
+using namespace family;
 
-namespace family {
-    NodeTree::NodeTree() {
-        this->myName = "";
-        this->father = nullptr;
-        this->mother = nullptr;
-    }
+Tree& family::Tree::addFather(string name,string father)
+{
+   // if (this->root==NULL)
+   // {          }
+    //NodeTree *node = nullptr;
+   // return node;
 
-    NodeTree::NodeTree(string name) {
-        this->myName = name;
-        this->father = nullptr;
-        this->mother = nullptr;
-    }
+return *this;
+}
 
-    Tree::Tree(string name) {
-        NodeTree node(name);
-        this->root = &node;
-    }
+Tree& family::Tree::addMother(string name,string mother)
+{
+    //if (this->root==NULL)
+   // {        return;    }
+   // NodeTree *node = nullptr;
+   // return node;
+    return *this;
+}
 
-    Tree &Tree::addFather(string child, string father) {
-        return *this;
-    }
 
-    Tree &Tree::addMother(string child, string father) {
-        return *this;
-    }
+string Tree::relation(string name)
+{
+   // NodeTree *currNode= nullptr;
 
-    string relation(string name) { return "k"; }
+    return "" ;
+}
 
-    string find(string name) { return "k"; }
+string Tree::find(string name)
+{
+    //NodeTree *currNode= nullptr;
 
-    void remove(string name) { ; }
+    return "" ;
 
-    void display() { ; }
+}
 
-    string toString() // for the diplay function
-    { return "k"; }
-};
+void Tree::remove(string name)
+{
+    //NodeTree *currNode= nullptr;
+
+    return ;
+}
+
+void Tree::display()
+{
+    return;
+}
+
+

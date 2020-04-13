@@ -1,43 +1,59 @@
+
+#ifndef UNTITLED4_FAMILYTREE_H
+#define UNTITLED4_FAMILYTREE_H
+
 #pragma once
 #include <iostream>
-#include <string>
-#include <stdio.h>
 
-using namespace std;
+using namespace  std;
+namespace family {
+class NodeTree{
+public:
+    string name;
+    NodeTree *father;
+    NodeTree *mother;
 
-namespace family
-{
-
-    class NodeTree{
-
-    public:
-        NodeTree *mother; // rigth
-        NodeTree *father; // left
-        string myName;
-        NodeTree ();
-        NodeTree (string name);
+    NodeTree(string name)
+    {
+        this->name =name;
+        this->father=nullptr;
+        this->mother=nullptr;
 
     };
-
-    class Tree{
-
-        NodeTree *root= new NodeTree(); //private
-
-    public:
-        Tree (string name);
-
-        Tree &addFather(string child,string father);
-        Tree &addMother(string child,string mother);
-
-        string relation(string name);
-        string find(string name);
-
-        void display();
-        void remove(string name);
-
-        string toString();
-
-    };
-
 
 };
+
+    class Tree {
+
+    public:
+        NodeTree *root;
+
+        int size ;//how many nodes in the tree
+
+	Tree()
+        {
+            this->root= nullptr;
+            size=0; 
+        };
+
+        Tree(string name)
+        {
+            this->root = new NodeTree(name);
+            size=1; //have just the root
+        };
+
+        Tree &addFather(string,string);
+        Tree &addMother(string,string);
+
+        string relation(string);
+        string find(string);
+
+        void display();
+        void remove(string);
+
+    };
+}
+
+
+#endif //UNTITLED4_FAMILYTREE_H
+
