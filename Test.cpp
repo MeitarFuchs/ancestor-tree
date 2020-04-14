@@ -1,42 +1,10 @@
 #include "doctest.h"
 #include "FamilyTree.hpp"
 #include <string>
+#include <iostream>
+#include <stdexcept>
 using namespace std;
 using namespace family;
-
-//family::Tree T("meitar");
-//
-//T.addFather("meitar" , "moshe")
-//.addMother("meitar" ,"naama")
-//.addFather("moshe" , "yair")
-//.addMother("moshe" , "sara")
-//.addFather("naama" , "yonathan")
-//.addMother("naama" , "rivka")
-//.addFather("yair" , "reouven")
-//.addMother("yair" , "hila")
-//.addFather("sara" , "gavriel")
-//.addMother("sara" , "roni")
-//.addFather("yonathan" , "amihai")
-//.addMother("yonathan" , "talia")
-//.addFather("rivka" , "ori")
-//.addMother("rivka" , "oriya")
-//.addFather("reouven" , "doron")
-//.addMother("reouven" , "hodaya")
-//.addFather("hila" , "itamar")
-//.addMother("hila" , "shira")
-//.addFather("gavriel" , "nathan")
-//.addMother("gavriel" , "shir")
-//.addFather("roni" , "shai")
-//.addMother("roni" , "shoshana")
-//.addFather("amihai" , "michael")
-//.addMother("amihai" , "hadar")
-//.addFather("talia" , "yehouda")
-//.addMother("talia" , "eden")
-//.addFather("ori" , "gil")
-//.addMother("ori" , "renana")
-//.addFather("oriya" , "netanel")
-//.addMother("oriya" , "shahar");
-
 
 TEST_CASE("relation"){
     family::Tree T("meitar");
@@ -72,7 +40,7 @@ TEST_CASE("relation"){
             .addFather("oriya" , "netanel")
             .addMother("oriya" , "shahar");
 
-            CHECK(T.relation("moshe")==string("father"));
+            CHECK(T.relation("moshe").compare("father")==0);
             CHECK(T.relation("naama")==string("mother"));
             CHECK(T.relation("yair")==string("grandfather"));
             CHECK(T.relation("sara")==string("grandmother"));
@@ -113,7 +81,7 @@ TEST_CASE("relation"){
             CHECK(T.relation("ido")==string("unrelated"));
             CHECK(T.relation("or")==string("unrelated"));
 
-}
+};
 
 TEST_CASE("find"){
     family::Tree T("meitar");
@@ -180,7 +148,7 @@ TEST_CASE("find"){
             CHECK(T.find("great-great-grandmother")==string("renana"));
             CHECK(T.find("great-great-grandmother")==string("shahar"));
 
-}
+};
 
 TEST_CASE("remove"){
     family::Tree T("meitar");
@@ -260,4 +228,4 @@ TEST_CASE("remove"){
             CHECK(T.relation("moshe")==string("unrelated"));
     T.remove("naama");
             CHECK(T.relation("naama")==string("unrelated"));
-}
+};

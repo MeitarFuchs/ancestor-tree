@@ -30,14 +30,14 @@ string Tree::relation(string name)
 {
    // NodeTree *currNode= nullptr;
 
-    return "" ;
+    return name ;
 }
 
 string Tree::find(string name)
 {
     //NodeTree *currNode= nullptr;
 
-    return "" ;
+    return name ;
 
 }
 
