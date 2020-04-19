@@ -9,20 +9,27 @@ using namespace family;
 
 NodeTree* family::Tree::findChild(string childName,NodeTree* root)
 {
-    NodeTree*node;
+    NodeTree* node=new NodeTree("");
     if (root==NULL)
-        return root;
-    else
     {
-        if (root->name == childName)
-            return root;
-        else //sending the father and mother to this func--Recorcive
-        {
-           node=family::Tree::findChild(childName,root->father);
-           node=family::Tree::findChild(childName,root->mother);
-        }
+        cout<<"root is null\n";
+        return root;
     }
+    if (root->name == childName)
+    {
+        cout<<"the root is the child\n";
+        return root;
+    }
+    else //sending the father and mother to this func--Recorcive
+        {
+            cout<<"rec find child\n";
+            node=Tree::findChild(childName,root->father);
+            cout<<"node\n";
+            if(node==NULL)
+                node=Tree::findChild(childName,root->mother);
+        }
 
+    return node;
 }
 
 
@@ -30,25 +37,29 @@ Tree& family::Tree::addFather(string name,string fatherName)
 {
    if (this->root==NULL)
    {
-       printf("the tree is empty");
+       cout<<("the tree is empty");
        throw out_of_range("the tree is empty");
    }
     else // if the tree is not empty
    {
-       NodeTree *currnt = findChild(name, this->root);
+       NodeTree *currnt=findChild(name, this->root);
+       cout<<"bake from find child\n";
        if (currnt == NULL) // if there is not a child like this
        {
-           printf("THERE IS NO CHILD");
+           cout<<("THERE IS NO CHILD");
            throw out_of_range("THERE IS NO CHILD");
 
        } else //THERE IS A CHILD LIKE THIS
        {
-           if (currnt->father != NULL) {
-               printf("THERE IS already father");
+           if (currnt->father != NULL && currnt->father->name==fatherName)
+           {
+               cout<<("THERE IS already father");
                throw out_of_range("THERE IS already father");
 
-           } else { //dont have a father
-               this->size++;
+           }
+           else //dont have a father
+               {
+               cout<<"dont have father\n";
                currnt->father = new NodeTree(fatherName, (currnt->height)+ 1, 1);
                return *this;
            }
@@ -60,7 +71,7 @@ Tree& family::Tree::addMother(string name,string motherName)
 {
     if (this->root==NULL)
     {
-        printf("the tree is empty");
+        cout<<("the tree is empty");
         throw out_of_range("the tree is empty");
         return *this;
     }
@@ -69,7 +80,7 @@ Tree& family::Tree::addMother(string name,string motherName)
         NodeTree *currnt = findChild(name, this->root);
         if (currnt==NULL) // if there is not a child like this
         {
-            printf("THERE IS NO CHILD");
+            cout<<("THERE IS NO CHILD");
             throw out_of_range("THERE IS NO CHILD");
             return *this;
         }
@@ -77,7 +88,7 @@ Tree& family::Tree::addMother(string name,string motherName)
         {
             if (currnt->mother!=NULL)
             {
-                printf("THERE IS already mother");
+                cout<<("THERE IS already mother");
                 throw out_of_range("THERE IS already mother");
 
                 return *this;
@@ -85,7 +96,6 @@ Tree& family::Tree::addMother(string name,string motherName)
 
             else
             { //dont have a mother-adding mother
-                this->size++;
                 currnt->mother = new NodeTree(motherName,(currnt->height)+1,2);
                 return *this;
             }
@@ -96,10 +106,12 @@ Tree& family::Tree::addMother(string name,string motherName)
 
 string Tree::relation(string name)
 {
+    if (name== this->root->name)
+        return "me";
    NodeTree *currNode= findChild(name, this->root);
    if (currNode==NULL)
    {
-       printf("there is not a child like this");
+       cout<<("there is not a child like this");
        return "unrelated";
    }
    else
@@ -134,11 +146,15 @@ string Tree::relation(string name)
 
 string Tree::find(string relation)
 {
+    if (relation=="me" && this->root!=NULL)
+        return this->root->name;
+
     int count=0;
     int sex =0;
     int len=relation.length();
-    string ansName="";
-    string temp="";
+    string tempS = "";
+    string ansName("");
+    string temp("");
 
     if (relation=="father" || relation=="mother")
     {
@@ -149,55 +165,64 @@ string Tree::find(string relation)
         else
             throw out_of_range("there is no parent"); // if there is no mother/ father
     }
-    else
-    {
-        bool flag=true;
-        int i=0;
-        while(flag)
+    if (relation=="grandfather" || relation=="grandmother" )
         {
-
-            if (relation[i]!='-')
-                temp+=relation[i];
-            else // if equals to -
+            if (relation == "grandfather")
             {
-
-                if (temp=="grandfather")
-                { count+=2;
-                sex=1;}
-
-                else
-                if (temp=="grandmother")
-                {count+=2;
-                sex=2;}
-
-                else
-                    if(temp=="great")
-                        count++;
-
-                else
-                    if (len==i-1)
-                        flag =false;
-
-                temp="";
+                cout<<"grand\n";
+                return findRelation(this->root , 2 ,1);
             }
+            else
+            if (relation == "grandmother")
+                return findRelation(this->root , 2 ,2);
 
-            i++;
         }
-    }
+        else {
+            int i = 0;
+            while (i<len)
+            {
+                if (relation[i] != '-')
+                {
+                    temp += relation[i];
+                }
+                if(relation[i]=='-' || i==(len-1))
+                {
+                    if (temp == "grandfather")
+                    {
+                        count += 2;
+                        sex = 1;
+                    }
+                    else
+                        if (temp == "grandmother")
+                        {
+                        count += 2;
+                        sex = 2;
+                        }
+                        else
+                            if (temp == "great")
+                                count++;
+                            else
+                                throw out_of_range("it is not a good relation");
 
-    string tempS = "";
+                    temp = "";
+                }
+                i++;
+            }
+    }
+    cout<<"count: "<<count<<"\n";
     tempS= findRelation(this->root , count ,sex);
-    if (tempS == "")
+    if(tempS == "")
     {
         throw out_of_range("THE RELATION IS NOT ON THE TREE");
     }
-    else
-        return tempS;
-
+        else
+             return tempS;
 }
+
 
 string Tree::findRelation(NodeTree *root, int count, int sex)
 {
+    cout<<"hello findRelation\n";
     string s="";
     if (root==NULL)
         return "";
@@ -208,15 +233,18 @@ string Tree::findRelation(NodeTree *root, int count, int sex)
     else
     {
         s=findRelation(root->father, count , sex );
-        s=findRelation(root->mother, count , sex );
+        if (s.empty())
+            s=findRelation(root->mother, count , sex );
     }
+    cout<<"s: "<<s<<"\n";
+    return s;
 }
 
 void Tree::remove(string name)
 {
     NodeTree * currNode=findChild(name, this->root);
     if (currNode==NULL) {
-        printf("this child dose not exist");
+        cout<<("this child dose not exist");
         throw out_of_range("this child dose not exist");
     }
     else

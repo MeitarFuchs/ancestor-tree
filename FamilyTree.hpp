@@ -39,18 +39,14 @@ public:
     public:
         NodeTree *root;
 
-        int size ;//how many nodes in the tree
-
 	Tree()
         {
             this->root= nullptr;
-            size=0; 
         };
 
         Tree(string name)
         {
             this->root = new NodeTree(name);
-            size=1; //have just the root
         };
 
         Tree &addFather(string,string);

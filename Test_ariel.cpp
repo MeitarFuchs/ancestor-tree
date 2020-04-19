@@ -9,10 +9,12 @@ TEST_CASE("Reference add Tree case") {
 	family::Tree T ("Yosef");
 	T.addFather("Yosef", "Yaakov")
 	 .addMother("Yosef", "Rachel")
-	 .addFather("Yaakov", "Isaac")
+.addFather("Yaakov", "Isaac")
 	 .addMother("Yaakov", "Rivka")
 	 .addFather("Isaac", "Avraham")
 	 .addFather("Avraham", "Terah");
+T.display();
+
 }
 
 TEST_CASE("Yosef Tree case") {  
@@ -20,14 +22,20 @@ TEST_CASE("Yosef Tree case") {
 	family::Tree T ("Yosef");
 	T.addFather("Yosef", "Yaakov");
 	T.addMother("Yosef", "Rachel");
+T.display();
 	CHECK_THROWS_AS(T.addFather("Yosef", "Yaakov"),exception);
 	CHECK_THROWS_AS(T.addMother("Yosef", "Rivka"),exception);
 	T.addFather("Yaakov", "Isaac");
+
 	T.addMother("Yaakov", "Rivka");
+
+T.display();
 	T.addFather("Rachel", "Avi");
+
 	T.addMother("Rachel", "Ruti");
 	T.addFather("Isaac", "Avraham");
 	T.addMother("Isaac", "Ruti");
+T.display();
 	CHECK_THROWS_AS(T.addFather("Isaac", "Israel"),exception);
 	CHECK_THROWS_AS(T.addMother("Isaac", "Ruti"),exception);
 	T.addFather("Avraham", "Yosi");
