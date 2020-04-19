@@ -169,7 +169,6 @@ string Tree::find(string relation)
         {
             if (relation == "grandfather")
             {
-                cout<<"grand\n";
                 return findRelation(this->root , 2 ,1);
             }
             else
@@ -222,7 +221,6 @@ string Tree::find(string relation)
 
 string Tree::findRelation(NodeTree *root, int count, int sex)
 {
-    cout<<"hello findRelation\n";
     string s="";
     if (root==NULL)
         return "";
@@ -236,7 +234,6 @@ string Tree::findRelation(NodeTree *root, int count, int sex)
         if (s.empty())
             s=findRelation(root->mother, count , sex );
     }
-    cout<<"s: "<<s<<"\n";
     return s;
 }
 
