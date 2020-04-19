@@ -10,6 +10,8 @@ namespace family {
 class NodeTree{
 public:
     string name;
+    int sex; //1-- father 2--mother
+    int height;
     NodeTree *father;
     NodeTree *mother;
 
@@ -18,7 +20,16 @@ public:
         this->name =name;
         this->father=nullptr;
         this->mother=nullptr;
-
+        this->sex=0;
+        this->height=-1;
+    };
+    NodeTree(string name, int height, int sex)
+    {
+        this->name =name;
+        this->father=nullptr;
+        this->mother=nullptr;
+        this->sex=sex;
+        this->height=height;
     };
 
 };
@@ -50,6 +61,9 @@ public:
 
         void display();
         void remove(string);
+
+        NodeTree* findChild(string,NodeTree*);
+
 
     };
 }
