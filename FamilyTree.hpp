@@ -21,7 +21,7 @@ public:
         this->father=nullptr;
         this->mother=nullptr;
         this->sex=0;
-        this->height=-1;
+        this->height=0;
     };
     NodeTree(string name, int height, int sex)
     {
@@ -61,9 +61,12 @@ public:
 
         void display();
         void remove(string);
+        void deleteRec(NodeTree* );
 
         NodeTree* findChild(string,NodeTree*);
+        string findRelation(NodeTree*, int , int);
 
+        void printTree(NodeTree* , int );
 
     };
 }
