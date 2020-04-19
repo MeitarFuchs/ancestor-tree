@@ -9,6 +9,7 @@ using namespace family;
 
 NodeTree* family::Tree::findChild(string childName,NodeTree* root)
 {
+    NodeTree*node;
     if (root==NULL)
         return root;
     else
@@ -17,8 +18,8 @@ NodeTree* family::Tree::findChild(string childName,NodeTree* root)
             return root;
         else //sending the father and mother to this func--Recorcive
         {
-            family::Tree::findChild(childName,root->father);
-            family::Tree::findChild(childName,root->mother);
+           node=family::Tree::findChild(childName,root->father);
+           node=family::Tree::findChild(childName,root->mother);
         }
     }
 
@@ -30,7 +31,7 @@ Tree& family::Tree::addFather(string name,string fatherName)
    if (this->root==NULL)
    {
        printf("the tree is empty");
-       return *this;
+       throw out_of_range("the tree is empty");
    }
     else // if the tree is not empty
    {
@@ -38,12 +39,14 @@ Tree& family::Tree::addFather(string name,string fatherName)
        if (currnt == NULL) // if there is not a child like this
        {
            printf("THERE IS NO CHILD");
-           return *this;
+           throw out_of_range("THERE IS NO CHILD");
+
        } else //THERE IS A CHILD LIKE THIS
        {
            if (currnt->father != NULL) {
                printf("THERE IS already father");
-               return *this;
+               throw out_of_range("THERE IS already father");
+
            } else { //dont have a father
                this->size++;
                currnt->father = new NodeTree(fatherName, (currnt->height)+ 1, 1);
@@ -55,10 +58,10 @@ Tree& family::Tree::addFather(string name,string fatherName)
 
 Tree& family::Tree::addMother(string name,string motherName)
 {
-
     if (this->root==NULL)
     {
         printf("the tree is empty");
+        throw out_of_range("the tree is empty");
         return *this;
     }
     else // if the tree is not empty
@@ -67,6 +70,7 @@ Tree& family::Tree::addMother(string name,string motherName)
         if (currnt==NULL) // if there is not a child like this
         {
             printf("THERE IS NO CHILD");
+            throw out_of_range("THERE IS NO CHILD");
             return *this;
         }
         else //THERE IS A CHILD LIKE THIS
@@ -74,6 +78,8 @@ Tree& family::Tree::addMother(string name,string motherName)
             if (currnt->mother!=NULL)
             {
                 printf("THERE IS already mother");
+                throw out_of_range("THERE IS already mother");
+
                 return *this;
             }
 
@@ -169,7 +175,7 @@ string Tree::find(string relation)
                         count++;
 
                 else
-                    if (len==i-1);
+                    if (len==i-1)
                         flag =false;
 
                 temp="";
