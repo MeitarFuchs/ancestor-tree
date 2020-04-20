@@ -12,9 +12,10 @@ TEST_CASE("Test 1 addFather & addMother & relation") {
     T.addFather("Shalom", "Aharon").addMother("Shalom", "Yafa");
 
     CHECK(T.relation("Shalom") == string("me"));
+T.display();
     CHECK(T.relation("Aharon") == string("father"));
     CHECK(T.relation("Yafa") == string("mother"));
-
+T.display();
     CHECK_THROWS(T.addFather("Shalom", "Yosef")); //Shalom already has a father
     CHECK_THROWS(T.addMother("Shalom", "Meri"));
 
@@ -203,7 +204,6 @@ TEST_CASE("Test 2 remove"){
     CHECK_THROWS(T.find(T.find("grandfather")));
 
     T.addFather("Hanna", "Nissan"); //removed Loren, sowe can add new father to Hanna now
-T.display();
     CHECK(T.find("grandfather") == string("Nissan")); 
     CHECK(T.find("grandmother") == string("Rachel"));
 }

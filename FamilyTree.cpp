@@ -49,9 +49,10 @@ Tree& family::Tree::addFather(string name,string fatherName)
            cout<<("THERE IS NO CHILD");
            throw out_of_range("THERE IS NO CHILD");
 
-       } else //THERE IS A CHILD LIKE THIS
+       }
+       else //THERE IS A CHILD LIKE THIS
        {
-           if (currnt->father != NULL && currnt->father->name==fatherName)
+           if (currnt->father != NULL )
            {
                cout<<("THERE IS already father");
                throw out_of_range("THERE IS already father");
@@ -109,6 +110,7 @@ string Tree::relation(string name)
     if (name== this->root->name)
         return "me";
    NodeTree *currNode= findChild(name, this->root);
+
    if (currNode==NULL)
    {
        cout<<("there is not a child like this");
@@ -116,7 +118,7 @@ string Tree::relation(string name)
    }
    else
    {
-      int temp=(this->root-> height) - currNode->height;
+      int temp=(this->root-> height) + currNode->height;
       if (temp==1)
       {
           if (currNode->sex==1)
@@ -146,9 +148,10 @@ string Tree::relation(string name)
 
 string Tree::find(string relation)
 {
-    if (relation=="me" && this->root!=NULL)
+    if (relation=="me" && this->root!=NULL) {
+        cout<<"find:      "<<this->root->name<<"\n";
         return this->root->name;
-
+    }
     int count=0;
     int sex =0;
     int len=relation.length();
@@ -158,10 +161,15 @@ string Tree::find(string relation)
 
     if (relation=="father" || relation=="mother")
     {
-        if (relation=="father" && (this->root->father)!=NULL )
+        if (relation=="father" && (this->root->father)!=NULL ) {
+            cout<<"find:      "<<this->root->father->name<<"\n";
             return this->root->father->name;
-        if (relation=="mother"  && (this->root->mother)!=NULL)
+        }
+        if (relation=="mother"  && (this->root->mother)!=NULL) {
+            cout<<"find:      "<<this->root->mother->name<<"\n";
+
             return this->root->mother->name; // maybe to check if it is not null??
+        }
         else
             throw out_of_range("there is no parent"); // if there is no mother/ father
     }
@@ -214,8 +222,11 @@ string Tree::find(string relation)
     {
         throw out_of_range("THE RELATION IS NOT ON THE TREE");
     }
-        else
-             return tempS;
+        else {
+        cout<<"find:      "<<tempS<<"\n";
+
+        return tempS;
+    }
 }
 
 
