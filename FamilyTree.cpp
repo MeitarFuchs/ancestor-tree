@@ -56,14 +56,13 @@ Tree& family::Tree::addFather(string name,string fatherName)
            {
                cout<<("THERE IS already father");
                throw out_of_range("THERE IS already father");
-
            }
            else //dont have a father
-               {
+           {
                cout<<"dont have father\n";
                currnt->father = new NodeTree(fatherName, (currnt->height)+ 1, 1);
                return *this;
-           }
+            }
        }
    }
 }
@@ -250,34 +249,82 @@ string Tree::findRelation(NodeTree *root, int count, int sex)
 
 void Tree::remove(string name)
 {
-    NodeTree * currNode=findChild(name, this->root);
-    if (currNode==NULL) {
-        cout<<("this child dose not exist");
+    if (this->root->name==name)
+        throw out_of_range("you can not remove the root");
+    NodeTree *currNode= nullptr;
+    currNode=findChild(name, this->root);
+
+    if (currNode==NULL)
+    {
         throw out_of_range("this child dose not exist");
     }
     else
         {
-        deleteRec(currNode);
+            if (currNode->father==NULL && currNode->mother==NULL) //is ale
+            {
+                cout<<"ale\n";
+                currNode=nullptr;
+                delete currNode;
+                return;
+            }
+                if (currNode->father==NULL &&currNode->mother!=NULL) {
+                    cout<<"has mother\n";
+                    deleteRec(currNode->mother);
+                    currNode=nullptr;
+                    delete currNode;
+                    return;
+                }
+
+                if (currNode->mother==NULL && currNode->father!=NULL) {
+                    cout<<"has father\n";
+                    deleteRec(currNode->father);
+                    currNode=nullptr;
+                    delete currNode;
+                    return;
+                }
+
+                if (currNode->father!=NULL && currNode->mother!=NULL)//has mother and father
+                {
+                    cout<<"has father and mother\n";
+                    deleteRec(currNode->mother);
+                    deleteRec(currNode->father);
+                    currNode=nullptr;
+                    delete currNode;
+                    return;
+                }
         }
     return ;
 }
  void Tree::deleteRec(NodeTree* root)
  {
-    if (root==NULL)
-        return;
-    if (root->father==NULL && root ->mother==NULL)
-        {
-        root=nullptr;
-        delete root;
-        }
-    else // the rec
-    {
-        deleteRec(root->father);
-        deleteRec(root->mother);
-    }
-
+     if (root == NULL) return;
+     deleteRec(root->mother);
+     deleteRec(root->father);
+     root=nullptr;
+     delete root;
  }
 
+
+
+
+//
+//void deleteRec(NodeTree** node){
+//    if (*node == NULL) return;
+//    deleteRec(&(*(node))->mother);
+//    deleteRec(&(*(node))->father);
+//    *node = nullptr;
+//    delete *node;
+//}
+//void Tree::remove(string name)
+//{
+//    NodeTree *temp = nullptr;
+//    temp=findChild(name, this->root);
+//    if (temp==NULL)
+//        throw out_of_range("the name is no in the tree");
+//    if(temp->father!=NULL)  deleteRec(&temp ->father);
+//    if(temp->mother!=NULL)  deleteRec(&temp ->mother);
+//
+//}
 
 void Tree::display()
 {
@@ -297,3 +344,22 @@ void Tree::printTree(NodeTree* root, int space)
         printTree(root->father,space);
 
 }
+
+
+
+
+//
+//void Tree::remove(string name)
+//{
+//    NodeTree* toRemove = findChild(name,this->root);
+//    //if we try to remove the root throw error
+//    if (toRemove == this->root) throw runtime_error("Error - can't remove the root");
+//    //we find what tree to remove - remove him and the help tree for relation
+//    if(toRemove!=nullptr)
+//    {
+//        if (toRemove->mother == toRemove) toRemove->mother = nullptr;
+//        if (toRemove->father == toRemove) toRemove->father = nullptr;
+//        delete toRemove;
+//    }
+//    else throw runtime_error("The given name unexist");
+//}

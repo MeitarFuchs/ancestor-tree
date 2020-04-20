@@ -12,10 +12,9 @@ TEST_CASE("Test 1 addFather & addMother & relation") {
     T.addFather("Shalom", "Aharon").addMother("Shalom", "Yafa");
 
     CHECK(T.relation("Shalom") == string("me"));
-T.display();
     CHECK(T.relation("Aharon") == string("father"));
     CHECK(T.relation("Yafa") == string("mother"));
-T.display();
+
     CHECK_THROWS(T.addFather("Shalom", "Yosef")); //Shalom already has a father
     CHECK_THROWS(T.addMother("Shalom", "Meri"));
 
