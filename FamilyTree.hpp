@@ -31,6 +31,11 @@ public:
         this->sex=sex;
         this->height=height;
     };
+    ~NodeTree()
+    {
+        this->father=NULL;
+        this->mother=NULL;
+    }
 
 };
 
