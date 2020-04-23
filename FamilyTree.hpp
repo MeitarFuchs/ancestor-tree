@@ -1,10 +1,8 @@
-
 #ifndef UNTITLED4_FAMILYTREE_H
 #define UNTITLED4_FAMILYTREE_H
 
 #pragma once
 #include <iostream>
-
 using namespace  std;
 namespace family {
 class NodeTree{
@@ -31,14 +29,13 @@ public:
         this->sex=sex;
         this->height=height;
     };
-    ~NodeTree()
+    ~NodeTree() // for delete
     {
         this->father=NULL;
         this->mother=NULL;
     }
 
 };
-
     class Tree {
 
     public:
@@ -62,16 +59,18 @@ public:
 
         void display();
         void remove(string);
-        void deleteRec(NodeTree* );
+
+    private:
 
         NodeTree* findChild(string,NodeTree*);
         string findRelation(NodeTree*, int , int);
-
         void printTree(NodeTree* , int );
+        void deleteT(NodeTree* ,string );
+        void freeALLTreeFromCurrnt(NodeTree*);
 
-    };
+        };
 }
 
 
-#endif //UNTITLED4_FAMILYTREE_H
+#endif
 
